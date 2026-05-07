@@ -1,0 +1,30 @@
+@startuml
+class "User" {
+    - String login
+    - String passwordHash
+    - int respectPoints
+    + boolean authenticate(String login, String pwd)
+    + void updatePoints(int delta)
+}
+
+class "ClimateManager" {
+    - double currentTemp
+    - double comfortLimit
+    + double getTemperature()
+    + boolean checkComfortStatus()
+}
+
+class "ProseManager" {
+    - List<String> catalog
+    + String getRecommendation(double temp)
+}
+
+class "ReviewSystem" {
+    - int lastRating
+    + int postReview(String bookTitle, int rating)
+}
+
+User "1" -- "*" ClimateManager : monitors >
+User "1" -- "*" ReviewSystem : writes >
+ClimateManager ..> ProseManager : triggers recommendation >
+@enduml
